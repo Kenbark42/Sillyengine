@@ -82,3 +82,24 @@ if(BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif()
+
+# GLFW
+find_package(glfw3 REQUIRED)
+include_directories(${GLFW_INCLUDE_DIRS})
+
+# GLAD
+add_subdirectory(external/glad)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include)
+
+# STB Image
+add_subdirectory(external/stb)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/stb)
+
+# Update Engine library target
+target_link_libraries(Engine
+    PUBLIC
+    OpenGL::GL
+    glfw
+    glad
+    stb
+)
